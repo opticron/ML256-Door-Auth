@@ -1,0 +1,13 @@
+<data>
+  <entries>
+    <entry>
+      <name name="item1">User1</name>
+      <nfc>NFC_ID_GOES_HERE</nfc>
+      <iSerial>USB_iSerial_GOES_HERE</iSerial>
+    </entry>
+    <entry>
+      <name name="item2">dummy1</name>
+      <nfc>dummynfc1</nfc>
+    </entry>
+  </entries>	
+</data>
