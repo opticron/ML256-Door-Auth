@@ -10,6 +10,6 @@ $PYTHON /home/pi/DoorAuth/DoorAuth1.7/src/scanForNFC_Unlock.py | tee /home/pi/nf
 NOW=$(date +"%b-%d-%y")
 
 until myprocess; do
-     echo "$NOW Prog crashed. Restarting..." > errorFreq.txt
+     echo "$NOW Prog crashed. Restarting..." >> errorFreq.txt
      sleep 1
 done
