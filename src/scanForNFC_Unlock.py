@@ -9,6 +9,7 @@ from playSound import *
 from whiteListCheck import *
 from writeToDirectory import *
 from logger import *
+from PostToRedQueen import *
 
 soundPrefix = "Welcome to Makers Local"
 soundSuffix = ""
@@ -61,6 +62,7 @@ try:
               #Any result other than NO_USER indicates that the user is in ldap and authenticated
               UnlockDoor()
               WriteToDirectory(name)
+              PostToRedQueen("NFC Unlock for: " + name)
               WaitToCloseThenLock()
 except: 
   f = open('/home/pi/myPythonErrorFile.txt','w')

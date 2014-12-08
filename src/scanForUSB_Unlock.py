@@ -10,6 +10,7 @@ from GPIO_interface import *
 from whiteListCheck import *
 from writeToDirectory import *
 from logger import *
+from PostToRedQueen import *
 
 #GLOBALS
 CHECK_LOCAL_WHITE_LIST = False  #Set this to False if use of local whitelist is not desired
@@ -54,6 +55,7 @@ while 1:
           #Any result other than NO_USER indicates that the user is authenticated
           UnlockDoor()
           WriteToDirectory(name)
+          PostToRedQueen("USB Unlock for: " + name)
           WaitToCloseThenLock()
   except KeyboardInterrupt:
     log( "\nBye\n")
