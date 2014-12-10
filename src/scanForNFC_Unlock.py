@@ -15,7 +15,8 @@ soundPrefix = "Welcome to Makers Local"
 soundSuffix = ""
 
 CHECK_LOCAL_WHITE_LIST = False  #Set this to False if use of local whitelist is not desired
-REPORT_TO_IRC = True           #Set this to False if not reporting entries to IRC
+IS_WILLIE_ENABLED = False #Set this to true to enable willie IRC Reporting
+IS_REDQUEEN_ENABLED = True #Set this to true to enable Red Queen IRC Reporting
 
 try:
   while True:
@@ -61,8 +62,10 @@ try:
             else:
               #Any result other than NO_USER indicates that the user is in ldap and authenticated
               UnlockDoor()
-              WriteToDirectory(name)
-              PostToRedQueen("NFC Unlock for: " + name)
+	      if (IS_WILLIE_ENABLED):              
+		WriteToDirectory(name)
+	      if (IS_REDQUEEN_ENABLED):
+                PostToRedQueen("NFC Unlock for: " + name)
               WaitToCloseThenLock()
 except: 
   f = open('/home/pi/myPythonErrorFile.txt','w')

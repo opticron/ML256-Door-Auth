@@ -14,6 +14,8 @@ from PostToRedQueen import *
 
 #GLOBALS
 CHECK_LOCAL_WHITE_LIST = False  #Set this to False if use of local whitelist is not desired
+IS_WILLIE_ENABLED = False #Set this to true to enable willie IRC Reporting
+IS_REDQUEEN_ENABLED = True #Set this to true to enable Red Queen IRC Reporting
 
 #Set the filename and open the file
 filename = '/var/log/kern.log'
@@ -54,8 +56,10 @@ while 1:
         else:
           #Any result other than NO_USER indicates that the user is authenticated
           UnlockDoor()
-          WriteToDirectory(name)
-          PostToRedQueen("USB Unlock for: " + name)
+	  if (IS_WILLIE_ENABLED):        
+	    WriteToDirectory(name)
+	  if (IS_REDQUEEN_ENABLED):
+	    PostToRedQueen("USB Unlock for: " + name)
           WaitToCloseThenLock()
   except KeyboardInterrupt:
     log( "\nBye\n")
