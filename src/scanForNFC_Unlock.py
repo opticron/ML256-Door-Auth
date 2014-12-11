@@ -22,7 +22,7 @@ try:
   while True:
       # Grab the output from poll.py
       results = subprocess.check_output(['/usr/bin/sudo','/usr/bin/python3',
-  '/home/pi/DoorAuth/DoorAuth1.7/src/poll.py'])
+  '/home/pi/DoorAuth/DoorAuth1.7/src/poll_old.py'])
       if results:
             log (results)
             log ("NFC detected!")
