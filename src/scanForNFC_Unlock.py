@@ -3,6 +3,7 @@ import binascii
 import sys
 import json
 import subprocess
+import time
 from ldapCheck import *
 from GPIO_interface import *
 from playSound import *
@@ -36,10 +37,15 @@ try:
             card_uid = scan_results['card_uid']
             #log card_uid
       
-            # Call Ldap checker and provide key to be checked
-            #trimmed_uid = card_uid[-9:]
-            #trimmed_uid = scan_results['card_full_uid'][2:-1]
-            trimmed_uid = card_uid
+            # Call Ldap checker and provide key to be checked            
+            trimmed_uid = scan_results['card_full_uid'][-15:]
+	    trimmed_uid = trimmed_uid[:-1]
+            #I believe the solution is to trim off the first characters IF they are "040804"
+            #log("Do we need to snip " + trimmed_uid[0:6] + " to make " + trimmed_uid[6:])
+            if trimmed_uid[0:6] == "040804" and len(trimmed_uid) >= 14:
+              #then we totes need to trim that shit yo (it's at least 14 chars but the first six are garbage)
+              trimmed_uid = trimmed_uid[6:]
+            #trimmed_uid = card_uid
             print trimmed_uid
             name = getUsernameFromNFC(trimmed_uid)
       
