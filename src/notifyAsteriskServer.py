@@ -46,8 +46,12 @@ def NotifyAsterisk(username):
 
   lib.set_null_snd_dev()
 
+  #Create Extra Headers
+  header_list = []
+  header_list.append(("ML256Username",username))
+
   # Make call
-  call = acc.make_call("sip:10.56.1.52:5060", MyCallCallback())
+  call = acc.make_call("sip:10.56.1.52:5060", MyCallCallback(), hdr_list=header_list)
 
   # Wait for ENTER before quitting
   print "Press <ENTER> to quit"
