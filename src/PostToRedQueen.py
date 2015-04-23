@@ -1,8 +1,15 @@
 import requests
+from logger import *
 
 def PostToRedQueen(textToSay):
-  textToSay = "Unlocking for: Tyler Please Put a #makerslocal Key in PostToRedQueen.py"
-  payload = {"message":textToSay, "channel":"##rqtest", "isaction":False, "key":"13371234"}
-  r = requests.post("https://restirc.tylercrumpton.com/relay", json = payload)
+  try:
+    payload = {"message":textToSay, "channel":"#makerslocal", "isaction":False, "key":"KEYGOESHERE"}
+    r = requests.post("https://crump.space/rq/relay", json = payload)
+  except:
+    f = open('/home/pi/myPythonErrorFile.txt','w')
+    #f.write( sys.exc_info()[0] )
+    log( sys.exc_info()[0])
+    f.close()
+
 
 
