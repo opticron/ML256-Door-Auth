@@ -52,6 +52,7 @@ while 1:
         # Call Ldap checker and provide key to be checked
         log(name)
         if (name == "NO_USER"):
+          PostToRedQueen("USB authentication failed.  Error: defense system not implemented.")
           continue
         else:
           #Any result other than NO_USER indicates that the user is authenticated
@@ -59,7 +60,7 @@ while 1:
 	  if (IS_WILLIE_ENABLED):        
 	    WriteToDirectory(name)
 	  if (IS_REDQUEEN_ENABLED):
-	    PostToRedQueen("USB Unlock for: " + name)
+	    PostToRedQueen("USB Authentication Token Found. Unlocking for " + name)
           WaitToCloseThenLock()
   except KeyboardInterrupt:
     log( "\nBye\n")

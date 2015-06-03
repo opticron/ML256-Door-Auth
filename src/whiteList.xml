@@ -1,9 +1,17 @@
 <data>
   <entries>
     <entry>
-      <name name="item1">User1</name>
-      <nfc>NFC_ID_GOES_HERE</nfc>
-      <iSerial>USB_iSerial_GOES_HERE</iSerial>
+      <name name="item1">omegix</name>
+      <nfc>b6e8ce2a5ad20f7ac360f8ce749c20bf842bf54c3e19339f502bc58d2148a12f87c208234585f8bde54f1b3b6b60f40062f22837aa7a947d8008419bccd493b7</nfc>
+      <iSerial>D93KBFOUF962IO84V4XM</iSerial>
+    </entry>
+    <entry>
+	<name name="item3">alsoomegix</name>
+	<nfc>b4f2d34f24a96a9b02c7f606ba5f22c696a48afa1bbb7360908f5b837f3688cead3a14c452db58f7660d307c1cd2c471347097b20cef278b83ce1741e88ee12a</nfc>  
+    </entry>
+    <entry>
+    	<name name="hfuller">Hunter Fuller</name>
+    	<nfc>9ac8d5a01a3fbbb470ecb8701c14557e3afcf4aa7b3d0cdfafd1580ef9fb01eb8d8d10953a5dcd21d56aef8bd730f81a7c4b701f1dceec7051bf7fdc94e26ab9</nfc>
     </entry>
     <entry>
       <name name="item2">dummy1</name>

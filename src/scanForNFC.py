@@ -3,12 +3,12 @@ import subprocess
 from ldapCheck import *
 from playSound import *
 
-playSounds = True
+playSounds = False
 
 while True:
     # Grab the output from poll.py
     results = subprocess.check_output(['/usr/bin/sudo','/usr/bin/python3',
-'/home/pi/code/DoorAuth1.7/src/poll.py'])
+'/home/pi/DoorAuth/DoorAuth1.7/src/poll.py'])
     print "Card scanned!"
     print results
 

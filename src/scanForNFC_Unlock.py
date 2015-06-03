@@ -46,14 +46,14 @@ try:
               #then we totes need to trim that shit yo (it's at least 14 chars but the first six are garbage)
               trimmed_uid = trimmed_uid[6:]
             #trimmed_uid = card_uid
-            print trimmed_uid
+            log("Going to search for " + trimmed_uid)
             name = getUsernameFromNFC(trimmed_uid)
       
             if (CHECK_LOCAL_WHITE_LIST):
               testVar = str(card_uid)
               if ( isInWhiteList(testVar) ):                 
                 log("UID in whitelist")
-                UnlockDoor()
+                UnlockDoor()                
                 #WriteToDirectory(name)
                 continue
               # implied else:  go on to check LDAP 
@@ -64,6 +64,7 @@ try:
             log(name)
             #PlaySound(soundPrefix + name + soundSuffix)
             if (name == "NO_USER"):
+              PostToRedQueen("NFC Authentication failed. Error: Defense system not implemented.")
               continue
             else:
               #Any result other than NO_USER indicates that the user is in ldap and authenticated
@@ -71,7 +72,7 @@ try:
 	      if (IS_WILLIE_ENABLED):              
 		WriteToDirectory(name)
 	      if (IS_REDQUEEN_ENABLED):
-                PostToRedQueen("NFC Unlock for: " + name)
+                PostToRedQueen("NFC Authentication Token found. Unlocking for " + name)                
               WaitToCloseThenLock()
 except: 
   f = open('/home/pi/myPythonErrorFile.txt','w')

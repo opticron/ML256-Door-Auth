@@ -4,9 +4,11 @@ import serial
 import sys
 #from cash_api import *
 
+LDAP_URI = 'ldap://newldap.256.makerslocal.org/'
+
 
 def getAllFromUID(uid):
-  ld = ldap.initialize('ldap://10.56.0.8')
+  ld = ldap.initialize(LDAP_URI)
   #name = "NO_USER"
   try:
     ld.simple_bind_s()
@@ -29,7 +31,7 @@ def getAllFromUID(uid):
 
 
 def getUsernameFromUSB(usbsn):
-  ld = ldap.initialize('ldap://10.56.0.8')
+  ld = ldap.initialize(LDAP_URI)
   name = "NO_USER"
   try:
     ld.simple_bind_s()
@@ -51,7 +53,7 @@ def getUsernameFromUSB(usbsn):
 
 
 def getUsernameFromNFC(nfcsn):
-  ld = ldap.initialize('ldap://10.56.0.8')
+  ld = ldap.initialize(LDAP_URI)
   name = "NO_USER"
   try:
     ld.simple_bind_s()

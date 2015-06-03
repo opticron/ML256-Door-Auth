@@ -5,36 +5,18 @@ import time
 #import ConfigParser
 #import hashlib
 import RPi.GPIO as GPIO
-from datetime import datetime
-import pickle
-from PostToRedQueen import *
 
-
-REPORT_LAST_TIME_DOOR_UNLOCKED = True
-
-def ReportLastTimeUnlocked():
-  lastTimeUnlocked = pickle.load(open("myDateTime.p","rb") )
-  today = datetime.now()
-  pickle.dump(today, open("myDateTime.p", "wb") )  
-  timeDiff = today - lastTimeUnlocked
-  hours, remainder = divmod(timeDiff.seconds, 3600)
-  minutes, seconds = divmod(remainder, 60)
-  toPrint = "It has been " +str(hours) +  " hours, " + str(minutes) + " minutes and " + str(seconds) + " seconds since last Unlock."
-  PostToRedQueen(toPrint)
 
  # Is it valid?
 def UnlockDoor():
-  print "Unlocking Door!"
   button_pin = 23 # Set to whatever your pin is
   GPIO.setwarnings(False)
   GPIO.setmode(GPIO.BCM)
   GPIO.setup(button_pin, GPIO.OUT)
   GPIO.output(button_pin, GPIO.HIGH)
   time.sleep(0.25)
-  GPIO.output(button_pin, GPIO.LOW)
-  if(REPORT_LAST_TIME_DOOR_UNLOCKED):
-    ReportLastTimeUnlocked()
-
+  GPIO.output(button_pin, GPIO.LOW)  
+    
 def LockDoor():
   button_pin = 24 # Set to whatever your pin is
   GPIO.setwarnings(False)
