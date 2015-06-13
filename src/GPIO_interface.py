@@ -6,25 +6,34 @@ import time
 #import hashlib
 import RPi.GPIO as GPIO
 
+REED_SENSOR_PIN = 22
+DOOR_STATE_OPEN = 0  #REED_SENSOR_PIN is has a pullup resistor to 5V
+DOOR_STATE_CLOSED = 1 #reed switch will be connected to ground
+BUTTON_STATE_PRESSED = 0
+BUTTON_STATE_RELEASED = 1
+UNLOCK_BUTTON_PIN = 27
+UNLOCK_RELAY_PIN = 23
+LOCK_RELAY_PIN = 24
+RELAY_TOGGLE_DELAY = 0.25
+CLOSE_TO_LOCK_DELAY = 3
+LOCK_ATTEMPT_BACKOFF_DELAY = 7
 
  # Is it valid?
 def UnlockDoor():
-  button_pin = 23 # Set to whatever your pin is
   GPIO.setwarnings(False)
   GPIO.setmode(GPIO.BCM)
-  GPIO.setup(button_pin, GPIO.OUT)
-  GPIO.output(button_pin, GPIO.HIGH)
-  time.sleep(0.25)
-  GPIO.output(button_pin, GPIO.LOW)  
+  GPIO.setup(UNLOCK_RELAY_PIN, GPIO.OUT)
+  GPIO.output(UNLOCK_RELAY_PIN, GPIO.HIGH)
+  time.sleep(RELAY_TOGGLE_DELAY)
+  GPIO.output(UNLOCK_RELAY_PIN, GPIO.LOW)
     
 def LockDoor():
-  button_pin = 24 # Set to whatever your pin is
   GPIO.setwarnings(False)
   GPIO.setmode(GPIO.BCM)
-  GPIO.setup(button_pin, GPIO.OUT)
-  GPIO.output(button_pin, GPIO.HIGH)
-  time.sleep(0.25)
-  GPIO.output(button_pin, GPIO.LOW)
+  GPIO.setup(LOCK_RELAY_PIN, GPIO.OUT)
+  GPIO.output(LOCK_RELAY_PIN, GPIO.HIGH)
+  time.sleep(RELAY_TOGGLE_DELAY)
+  GPIO.output(LOCK_RELAY_PIN, GPIO.LOW)
   print("Door Should Now be Locked.")
 
 
@@ -46,14 +55,6 @@ def ScheduleLockStep(lock_stage, delay=0.5, override=False):
         return
     CLOSE_TIMER['waiting_timer'] = Timer(delay, lock_stage)
     CLOSE_TIMER['waiting_timer'].start()
-
-REED_SENSOR_PIN = 22
-DOOR_STATE_OPEN = 0  #REED_SENSOR_PIN is has a pullup resistor to 5V
-DOOR_STATE_CLOSED = 1 #reed switch will be connected to ground
-BUTTON_STATE_PRESSED = 0
-BUTTON_STATE_RELEASED = 1
-UNLOCK_BUTTON_PIN = 27
-
 
 def CleanTimer():
   with CLOSE_TIMER['lock']:
@@ -88,7 +89,7 @@ def DoDebounce():
     return
 
   print("Door-Closed-Sensor Debounce Test Passed")
-  ScheduleLockStep(FinalDoorCheck, delay=3)
+  ScheduleLockStep(FinalDoorCheck, delay=CLOSE_TO_LOCK_DELAY)
 
 def FinalDoorCheck():
   '''Make sure someone didn't change their mind right after closing the door and reopen it'''
@@ -103,8 +104,8 @@ def FinalDoorCheck():
   LockDoor()
   
 def WaitToCloseThenLock():
-  #print("Waiting for 7 Seconds before scanning for door closure")
-  ScheduleLockStep(AttemptLock, delay=7, override=True)
+  #print("Waiting for %d Seconds before scanning for door closure" % LOCK_ATTEMPT_BACKOFF_DELAY)
+  ScheduleLockStep(AttemptLock, delay=LOCK_ATTEMPT_BACKOFF_DELAY, override=True)
 
 def PrintReedSwitchState():
   GPIO.setmode(GPIO.BCM)
