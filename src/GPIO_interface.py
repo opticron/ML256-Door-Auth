@@ -5,18 +5,21 @@ import time
 #import ConfigParser
 #import hashlib
 import RPi.GPIO as GPIO
+from door_utils import get_config_section
 
-REED_SENSOR_PIN = 22
-DOOR_STATE_OPEN = 0  #REED_SENSOR_PIN is has a pullup resistor to 5V
-DOOR_STATE_CLOSED = 1 #reed switch will be connected to ground
-BUTTON_STATE_PRESSED = 0
-BUTTON_STATE_RELEASED = 1
-UNLOCK_BUTTON_PIN = 27
-UNLOCK_RELAY_PIN = 23
-LOCK_RELAY_PIN = 24
-RELAY_TOGGLE_DELAY = 0.25
-CLOSE_TO_LOCK_DELAY = 3
-LOCK_ATTEMPT_BACKOFF_DELAY = 7
+GPIO_CONFIG = get_config_section("GPIO")
+
+REED_SENSOR_PIN = GPIO_CONFIG.get("reed_sensor_pin", 22)
+DOOR_STATE_OPEN = GPIO_CONFIG.get("door_state_open", 0)  #REED_SENSOR_PIN is has a pullup resistor to 5V
+DOOR_STATE_CLOSED = GPIO_CONFIG.get("door_state_closed", 1) #reed switch will be connected to ground
+BUTTON_STATE_PRESSED = GPIO_CONFIG.get("button_state_pressed", 0)
+BUTTON_STATE_RELEASED = GPIO_CONFIG.get("button_state_released", 1)
+UNLOCK_BUTTON_PIN = GPIO_CONFIG.get("unlock_button_pin", 27)
+UNLOCK_RELAY_PIN = GPIO_CONFIG.get("unlock_relay_pin", 23)
+LOCK_RELAY_PIN = GPIO_CONFIG.get("lock_relay_pin", 24)
+RELAY_TOGGLE_DELAY = GPIO_CONFIG.get("relay_toggle_delay", 0.25)
+CLOSE_TO_LOCK_DELAY = GPIO_CONFIG.get("close_to_lock_delay", 3)
+LOCK_ATTEMPT_BACKOFF_DELAY = GPIO_CONFIG.get("lock_attempt_backoff_delay", 7)
 
  # Is it valid?
 def UnlockDoor():
