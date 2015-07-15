@@ -3,8 +3,8 @@
 PYTHON=/usr/bin/python
 
 function myprocess {
-     $PYTHON /home/pi/DoorAuth/DoorAuth1.7/src/scanForUSB_Unlock.py \
-     | tee -a /home/pi/usb.log
+     $PYTHON `dirname $0`/scanForUSB_Unlock.py \
+     | tee -a `dirname $0`/usb.log
 }
 
 
