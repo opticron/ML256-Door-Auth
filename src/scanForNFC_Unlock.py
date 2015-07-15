@@ -11,6 +11,7 @@ from whiteListCheck import *
 from writeToDirectory import *
 from logger import *
 from PostToRedQueen import *
+import os
 
 soundPrefix = "Welcome to Makers Local"
 soundSuffix = ""
@@ -23,7 +24,7 @@ try:
   while True:
       # Grab the output from poll.py
       results = subprocess.check_output(['/usr/bin/sudo','/usr/bin/python3',
-  '/home/pi/DoorAuth/DoorAuth1.7/src/poll_old.py'])
+  os.path.join(os.path.dirname(__file__), "poll_old.py")])
       if results:
             log (results)
             log ("NFC detected!")

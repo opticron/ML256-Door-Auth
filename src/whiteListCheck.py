@@ -3,7 +3,7 @@ import time, os, re
 import sys
 from xml.dom import minidom
 
-WHITE_LIST_PATH =  "/home/pi/DoorAuth/DoorAuth1.7/src/whiteList.xml"
+WHITE_LIST_PATH = os.path.join(os.path.dirname(__file__), "whiteList.xml")
 
 def isInWhiteList(uid):
   print ("Got this far 2")
