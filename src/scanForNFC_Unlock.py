@@ -17,7 +17,6 @@ soundPrefix = "Welcome to Makers Local"
 soundSuffix = ""
 
 CHECK_LOCAL_WHITE_LIST = False  #Set this to False if use of local whitelist is not desired
-IS_WILLIE_ENABLED = False #Set this to true to enable willie IRC Reporting
 IS_REDQUEEN_ENABLED = True #Set this to true to enable Red Queen IRC Reporting
 
 try:
@@ -55,7 +54,6 @@ try:
               if ( isInWhiteList(testVar) ):                 
                 log("UID in whitelist")
                 UnlockDoor()                
-                #WriteToDirectory(name)
                 continue
               # implied else:  go on to check LDAP 
               #REMVE NEXT LINE
@@ -70,8 +68,6 @@ try:
             else:
               #Any result other than NO_USER indicates that the user is in ldap and authenticated
               UnlockDoor()
-	      if (IS_WILLIE_ENABLED):              
-		WriteToDirectory(name)
 	      if (IS_REDQUEEN_ENABLED):
                 PostToRedQueen("NFC Authentication Token found. Unlocking for " + name)                
               WaitToCloseThenLock()

@@ -26,5 +26,4 @@
 @reboot /home/pi/DoorAuth/DoorAuth1.7/src/DoorAuthWatchdog2.sh #> /home/pi/error.log 2>&1
 @reboot /home/pi/DoorAuth/DoorAuth1.7/src/DoorAuthWatchdogUSB.sh #> /home/pi/errorUSB.log 2>&1
 @reboot /home/pi/DoorAuth/DoorAuth1.7/src/DoorAuthWatchdogButton.sh #> /home/pi/error.log 2>&1
-@reboot /home/pi/DoorAuth/DoorAuth1.7/src/RunWillie.sh > /home/pi/errorWillie.log 2>&1
 

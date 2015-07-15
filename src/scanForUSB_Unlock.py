@@ -8,13 +8,11 @@ import time, os, re, ldap
 from ldapCheck import *
 from GPIO_interface import *
 from whiteListCheck import *
-from writeToDirectory import *
 from logger import *
 from PostToRedQueen import *
 
 #GLOBALS
 CHECK_LOCAL_WHITE_LIST = False  #Set this to False if use of local whitelist is not desired
-IS_WILLIE_ENABLED = False #Set this to true to enable willie IRC Reporting
 IS_REDQUEEN_ENABLED = True #Set this to true to enable Red Queen IRC Reporting
 
 #Set the filename and open the file
@@ -57,8 +55,6 @@ while 1:
         else:
           #Any result other than NO_USER indicates that the user is authenticated
           UnlockDoor()
-	  if (IS_WILLIE_ENABLED):        
-	    WriteToDirectory(name)
 	  if (IS_REDQUEEN_ENABLED):
 	    PostToRedQueen("USB Authentication Token found. Unlocking for " + name)
           WaitToCloseThenLock()
