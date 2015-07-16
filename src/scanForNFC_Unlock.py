@@ -5,13 +5,11 @@ import json
 import subprocess
 import time
 from ldapCheck import *
-from GPIO_interface import *
+from door_utils import unlock_door, schedule_lock
 from playSound import *
 from whiteListCheck import *
-from writeToDirectory import *
-from logger import *
-from PostToRedQueen import *
-import os
+from logger import log
+from post_to_red_queen import post_to_red_queen
 
 soundPrefix = "Welcome to Makers Local"
 soundSuffix = ""
@@ -27,7 +25,7 @@ try:
       if results:
             log (results)
             log ("NFC detected!")
-      
+
             # Convert the JSON into a list
             scan_results = json.loads(results)
                 #params={'reader_id':scan_results['reader_id'],
@@ -36,8 +34,8 @@ try:
                 #        'timestamp':timestamp})
             card_uid = scan_results['card_uid']
             #log card_uid
-      
-            # Call Ldap checker and provide key to be checked            
+
+            # Call Ldap checker and provide key to be checked
             trimmed_uid = scan_results['card_full_uid'][-15:]
 	    trimmed_uid = trimmed_uid[:-1]
             #I believe the solution is to trim off the first characters IF they are "040804"
@@ -48,30 +46,30 @@ try:
             #trimmed_uid = card_uid
             log("Going to search for " + trimmed_uid)
             name = getUsernameFromNFC(trimmed_uid)
-      
+
             if (CHECK_LOCAL_WHITE_LIST):
               testVar = str(card_uid)
-              if ( isInWhiteList(testVar) ):                 
+              if ( isInWhiteList(testVar) ):
                 log("UID in whitelist")
-                UnlockDoor()                
+                unlock_door()
                 continue
-              # implied else:  go on to check LDAP 
+              # implied else:  go on to check LDAP
               #REMVE NEXT LINE
       	#continue
-            
+
             #if we get here, the user wasn't in the white list (or we didn't check it)
             log(name)
             #PlaySound(soundPrefix + name + soundSuffix)
             if (name == "NO_USER"):
-              PostToRedQueen("NFC Authentication failed. Error: Defense system not implemented.")
+              post_to_red_queen("NFC Authentication failed. Error: Defense system not implemented.")
               continue
             else:
               #Any result other than NO_USER indicates that the user is in ldap and authenticated
-              UnlockDoor()
+              unlock_door()
 	      if (IS_REDQUEEN_ENABLED):
-                PostToRedQueen("NFC Authentication Token found. Unlocking for " + name)                
-              WaitToCloseThenLock()
-except: 
+                post_to_red_queen("NFC Authentication Token found. Unlocking for " + name)
+              schedule_lock()
+except:
   f = open('/home/pi/myPythonErrorFile.txt','w')
   #f.write( sys.exc_info()[0] )
   log( sys.exc_info()[0])

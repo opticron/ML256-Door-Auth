@@ -1,12 +1,8 @@
 #!/usr/bin/python
 
-import time, os, re, ldap
-from ldapCheck import *
-from GPIO_interface import *
-from whiteListCheck import *
-from writeToDirectory import *
-from logger import *
-from PostToRedQueen import *
+from door_utils import schedule_lock, unlock_door
+from logger import log
+from post_to_red_queen import post_to_red_queen
 
 #GLOBALS
 IS_REDQUEEN_ENABLED = True #Set this to true to enable Red Queen IRC Reporting
@@ -18,15 +14,15 @@ else:
 	name = sys.argv.pop()
 	str = "LDAP credentials verified. Unlocking for " + name
 
-UnlockDoor()
+unlock_door()
 
 log("unlocked via CLI for:")
 log(name)
 
 if (IS_REDQUEEN_ENABLED):
-	PostToRedQueen(str)
+	post_to_red_queen(str)
 	print str
 
-WaitToCloseThenLock()
+schedule_lock()
 
 

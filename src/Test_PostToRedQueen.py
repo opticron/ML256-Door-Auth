@@ -1,3 +1,3 @@
-from PostToRedQueen import *
+from post_to_red_queen import post_to_red_queen
 
-PostToRedQueen("DoorPi Unit test")
+post_to_red_queen("DoorPi Unit test")

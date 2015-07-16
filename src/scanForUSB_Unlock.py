@@ -6,10 +6,10 @@
 
 import time, os, re, ldap
 from ldapCheck import *
-from GPIO_interface import *
+from door_utils import unlock_door, schedule_lock
 from whiteListCheck import *
-from logger import *
-from PostToRedQueen import *
+from logger import log
+from post_to_red_queen import post_to_red_queen
 
 #GLOBALS
 CHECK_LOCAL_WHITE_LIST = False  #Set this to False if use of local whitelist is not desired
@@ -44,20 +44,20 @@ while 1:
         if (CHECK_LOCAL_WHITE_LIST):
           if ( isInWhiteList(iSerial) ):
             log( "UID in whitelist")
-            UnlockDoor()
+            unlock_door()
             continue
         # implied else:  go on to check LDAP 
         # Call Ldap checker and provide key to be checked
         log(name)
         if (name == "NO_USER"):
-          PostToRedQueen("USB authentication failed.  Error: defense system not implemented.")
+          post_to_red_queen("USB authentication failed.  Error: defense system not implemented.")
           continue
         else:
           #Any result other than NO_USER indicates that the user is authenticated
-          UnlockDoor()
+          unlock_door()
 	  if (IS_REDQUEEN_ENABLED):
-	    PostToRedQueen("USB Authentication Token found. Unlocking for " + name)
-          WaitToCloseThenLock()
+	    post_to_red_queen("USB Authentication Token Found. Unlocking for " + name)
+          schedule_lock()
   except KeyboardInterrupt:
     log( "\nBye\n")
     sys.exit()

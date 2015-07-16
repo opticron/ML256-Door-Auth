@@ -2,7 +2,8 @@
 import sys
 import json
 import subprocess
-from GPIO_interface import *
+from scanForButton import WaitForButtonUnlockThenLock
+from door_utils import unlock_door
 from playSound import *
 
 soundPrefix = "Goodbye!"
@@ -16,7 +17,7 @@ try:
       print ("Unlock Button Detected!")
       print (results)
 
-      UnlockDoor()
+      unlock_door()
 
       #PlaySound(soundPrefix + name + soundSuffix)
       #WaitToCloseThenLock()

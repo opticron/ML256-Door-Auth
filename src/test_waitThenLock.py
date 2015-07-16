@@ -1,5 +1,4 @@
+from door_utils import schedule_lock
 
-from GPIO_interface import *
-
-WaitToCloseThenLock()
+schedule_lock()
 print "done testing"

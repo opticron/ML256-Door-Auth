@@ -1,10 +1,10 @@
 import requests
-from logger import *
+from logger import log
 from door_utils import get_config_section
 
 RQ_CONFIG = get_config_section("RedQueen")
 
-def PostToRedQueen(textToSay):
+def post_to_red_queen(textToSay):
   try:
     payload = {"message":textToSay, "channel":RQ_CONFIG['Channel'], \
       "isaction":RQ_CONFIG['IsAction'], "key":RQ_CONFIG['Key']}

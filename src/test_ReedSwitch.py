@@ -1,6 +1,6 @@
-from GPIO_interface import *
+from door_utils import unlock_door, schedule_lock
 
-UnlockDoor()
+unlock_door()
 print("Unlocked Door")
-WaitToCloseThenLock()
+schedule_lock()
 print("Locked Door")

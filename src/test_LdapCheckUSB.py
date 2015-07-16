@@ -1,8 +1,6 @@
 #!/usr/bin/python
-#import time, os, re, ldap
-#import serial
 import sys
-from ldapCheck import *
+from ldapCheck import getUsernameFromUSB
 
 
 while 1:

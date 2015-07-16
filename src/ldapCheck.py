@@ -2,17 +2,14 @@
 import time, os, re, ldap
 import serial
 import sys
-#from cash_api import *
 from door_utils import get_config_section
 
 LDAP_CONFIG = get_config_section("LDAP")
 
 LDAP_URI = LDAP_CONFIG["Address"]
 
-
 def getAllFromUID(uid):
   ld = ldap.initialize(LDAP_URI)
-  #name = "NO_USER"
   try:
     ld.simple_bind_s()
   except ldap.LDAPError, e:
@@ -24,14 +21,9 @@ def getAllFromUID(uid):
     basedn = "dc=makerslocal,dc=org"
     filter = "uid="+uid
     results = ld.search_s(basedn,ldap.SCOPE_SUBTREE,filter)
-    #name = results[0][1]['uid'][0]
-    #print name
   finally:
     ld.unbind()
     return results
-
-
-
 
 def getUsernameFromUSB(usbsn):
   ld = ldap.initialize(LDAP_URI)
@@ -47,13 +39,11 @@ def getUsernameFromUSB(usbsn):
     basedn = "dc=makerslocal,dc=org"
     filter = "usbSerial="+usbsn
     results = ld.search_s(basedn,ldap.SCOPE_SUBTREE,filter)
-    #print results
     name = results[0][1]['uid'][0]
     print name
   finally:
     ld.unbind()
     return name
-
 
 def getUsernameFromNFC(nfcsn):
   ld = ldap.initialize(LDAP_URI)
@@ -69,12 +59,8 @@ def getUsernameFromNFC(nfcsn):
     basedn = "dc=makerslocal,dc=org"
     filter = "nfcID="+nfcsn
     results = ld.search_s(basedn,ldap.SCOPE_SUBTREE,filter)
-    #print results
     name = results[0][1]['uid'][0]
   finally:
     ld.unbind()
     return name
-
-
-
 

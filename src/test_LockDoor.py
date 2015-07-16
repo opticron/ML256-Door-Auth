@@ -1,3 +1,3 @@
-from GPIO_interface import *
+from door_utils import lock_door
 
-LockDoor()
+lock_door()
