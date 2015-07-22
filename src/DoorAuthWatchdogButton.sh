@@ -4,7 +4,7 @@ PYTHON=/usr/bin/python
 
 function myprocess {
 
-$PYTHON /home/pi/DoorAuth/DoorAuth1.7/src/scanForButton_Unlock.py >> /home/pi/DoorAuth/DoorAuth1.7/src/error.txt
+$PYTHON `dirname $0`/scanForButton_Unlock.py >> `dirname $0`/error.txt
 
 }
 NOW=$(date +"%b-%d-%y")

@@ -3,8 +3,11 @@ import time, os, re, ldap
 import serial
 import sys
 #from cash_api import *
+from door_utils import get_config_section
 
-LDAP_URI = 'ldap://newldap.256.makerslocal.org/'
+LDAP_CONFIG = get_config_section("LDAP")
+
+LDAP_URI = LDAP_CONFIG["Address"]
 
 
 def getAllFromUID(uid):

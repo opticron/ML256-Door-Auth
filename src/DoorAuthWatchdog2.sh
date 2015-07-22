@@ -3,8 +3,8 @@
 PYTHON=/usr/bin/python
 
 function myprocess {
-     $PYTHON /home/pi/DoorAuth/DoorAuth1.7/src/scanForNFC_Unlock.py \
-     | tee -a /home/pi/nfc.log
+     $PYTHON `dirname $0`/scanForNFC_Unlock.py \
+     | tee -a `dirname $0`/nfc.log
 }
 
 

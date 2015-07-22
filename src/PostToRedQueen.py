@@ -1,9 +1,13 @@
 import requests
 from logger import *
+from door_utils import get_config_section
+
+RQ_CONFIG = get_config_section("RedQueen")
 
 def PostToRedQueen(textToSay):
   try:
-    payload = {"message":textToSay, "channel":"#makerslocal", "isaction":False, "key":"KEYGOESHERE"}
+    payload = {"message":textToSay, "channel":RQ_CONFIG['Channel'], \
+      "isaction":RQ_CONFIG['IsAction'], "key":RQ_CONFIG['Key']}
     r = requests.post("https://crump.space/rq/relay", json = payload)
   except:
     f = open('/home/pi/myPythonErrorFile.txt','w')

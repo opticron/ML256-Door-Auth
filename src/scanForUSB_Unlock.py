@@ -60,7 +60,7 @@ while 1:
 	  if (IS_WILLIE_ENABLED):        
 	    WriteToDirectory(name)
 	  if (IS_REDQUEEN_ENABLED):
-	    PostToRedQueen("USB Authentication Token Found. Unlocking for " + name)
+	    PostToRedQueen("USB Authentication Token found. Unlocking for " + name)
           WaitToCloseThenLock()
   except KeyboardInterrupt:
     log( "\nBye\n")
